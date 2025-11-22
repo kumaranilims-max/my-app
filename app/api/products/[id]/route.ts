@@ -13,7 +13,7 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json(updatedProduct);
   } catch (error) {
     console.error('Update error:', error);
-    return NextResponse.json({ error: error.message || 'Failed to update product' }, { status: 500 });
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'Failed to update product' }, { status: 500 });
   }
 }
 
@@ -27,6 +27,7 @@ export async function DELETE(request: NextRequest) {
     await deleteProduct(id);
     return NextResponse.json({ message: 'Product deleted successfully' });
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to delete product' }, { status: 500 });
+    console.error('Delete error:', error);
+    return NextResponse.json({ error: error instanceof Error ? error.message : 'Failed to delete product' }, { status: 500 });
   }
 }
