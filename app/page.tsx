@@ -235,6 +235,7 @@ export default function Home() {
                                 >
                                   +
                                 </button>
+                                
                               </div>
                               <button 
                                 onClick={() => handleRemoveFromCart(item.product.id)} 
