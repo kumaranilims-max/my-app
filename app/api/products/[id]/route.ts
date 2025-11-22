@@ -6,7 +6,10 @@ export async function PUT(request: NextRequest) {
   try {
     const url = new URL(request.url);
     const id = url.pathname.split('/').pop();
-    console.log('Extracted ID from URL:', id);
+    
+    if (!id) {
+      return NextResponse.json({ error: 'Product ID is required' }, { status: 400 });
+    }
     
     const body = await request.json();
     const updatedProduct = await updateProduct(id, body);
@@ -22,7 +25,10 @@ export async function DELETE(request: NextRequest) {
   try {
     const url = new URL(request.url);
     const id = url.pathname.split('/').pop();
-    console.log('Extracted ID from URL for delete:', id);
+    
+    if (!id) {
+      return NextResponse.json({ error: 'Product ID is required' }, { status: 400 });
+    }
     
     await deleteProduct(id);
     return NextResponse.json({ message: 'Product deleted successfully' });
